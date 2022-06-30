@@ -1,0 +1,10 @@
+<launch>
+
+    <node pkg="nate_stretch_core" type="camera_pcl_downsample_node" name="CameraDownsampleNode" output="screen">
+        <rosparam file="$(find pkg)/params/camera_downsample_params.yaml" command="load" />
+    </node>
+    <node pkg="nate_stretch_core" type="camera_pcl_passthrough_node" name="CameraPassthroughNode" output="screen">
+        <rosparam file="$(find pkg)/params/camera_passthrough_params.yaml" command="load" />
+    </node>
+
+</launch>
