@@ -147,8 +147,6 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(camera_pcl_downsample_node src/camera_pcl_downsampler.cpp)
 add_executable(camera_pcl_passthrough_node src/camera_pcl_passthrough.cpp)
-add_executable(realsense_pcl_downsample_node src/realsense_pcl_downsampler.cpp)
-add_executable(realsense_pcl_passthrough_node src/realsense_pcl_passthrough.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -160,20 +158,12 @@ add_executable(realsense_pcl_passthrough_node src/realsense_pcl_passthrough.cpp)
 ## same as for the library above
 add_dependencies(camera_pcl_downsample_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(camera_pcl_passthrough_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(realsense_pcl_downsample_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(realsense_pcl_passthrough_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(camera_pcl_downsample_node
    ${catkin_LIBRARIES}
 )
 target_link_libraries(camera_pcl_passthrough_node
-   ${catkin_LIBRARIES}
-)
-target_link_libraries(realsense_pcl_downsample_node
-   ${catkin_LIBRARIES}
-)
-target_link_libraries(realsense_pcl_passthrough_node
    ${catkin_LIBRARIES}
 )
 
