@@ -1,5 +1,0 @@
-<launch>
-    <node pkg="nate_stretch_core" type="camera_pcl_downsample_node" name="CamDownsample" output="screen">
-        <rosparam file="/home/csrobot/stretch_ws/src/nate_stretch/nate_stretch_core/params/camera_downsample_params.yaml" command="load"/>
-    </node>
-</launch>
