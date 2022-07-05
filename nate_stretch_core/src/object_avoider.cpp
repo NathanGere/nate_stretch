@@ -9,14 +9,37 @@ void callback(const sensor_msgs::LaserScan::ConstPtr &scan)
     geometry_msgs::Twist motorizer;
     int size = scan->ranges.size();
     float front = scan->ranges[(size-1)/2];
+    float back = scan->ranges[0];
+
+    int f = 0;
+    int b = 0;
+
     if(front < 1.1)
     {
-        motorizer.linear.x = 0.0;
+        f = 1;
     }
-    else
+    if(back < 1.1)
     {
-        motorizer.linear.x = 0.2;
+        b = 2;
     }
+
+    int tracker = f + b;
+
+    switch(tracker)
+    {
+        case 0:
+            motorizer.linear.x = 0.5;
+        case 1:
+            motorizer.linear.x = -0.5;
+            break;
+        case 2:
+            motorizer.linear.x = 0.5;
+            break;
+        case 3:
+            motorizer.linear.x = 0.0;
+            break;
+    }
+
     pub.publish(motorizer);
 }
 int main(int argc, char** argv)
