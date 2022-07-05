@@ -1,0 +1,5 @@
+<launch>
+    <!-- Object avoider launch file -->
+    <node pkg="nate_stretch_core" type="object_avoider_node" name="ObjectAvoider" output="screen">
+    </node>
+</launch>

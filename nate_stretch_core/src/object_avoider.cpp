@@ -1,4 +1,3 @@
-#include <atomic>
 #include<ros/ros.h>
 #include<sensor_msgs/LaserScan.h>
 #include<geometry_msgs/Twist.h>
@@ -9,6 +8,80 @@ void callback(const sensor_msgs::LaserScan::ConstPtr &scan)
 {
     geometry_msgs::Twist motorizer;
     int size = scan->ranges.size();
+    float front = scan->ranges[(size-1)/2];
+    if(front < 1.1)
+    {
+        motorizer.linear.x = 0.0;
+    }
+    else
+    {
+        motorizer.linear.x = 0.2;
+    }
+    pub.publish(motorizer);
+}
+int main(int argc, char** argv)
+{
+    ros::init(argc, argv, "object_avoider_node");
+    ros::NodeHandle n;
+    pub = n.advertise<geometry_msgs::Twist>("/stretch_diff_drive_controller/cmd_vel", 1000);
+    ros::Subscriber sub = n.subscribe("/scan", 1000, callback);
+
+    ros::spin();
+}
+
+ /*
+    motorizer.linear.x=5.0;
+    if(right <= 1.2 && left <= 1.2)
+    {
+        motorizer.linear.x=0.5;
+        if(right < left && right + 0.4 > left)
+        {
+            motorizer.angular.z=2.0;
+            motorizer.linear.x=1.0;
+        }
+        if(right < left)
+        {
+            motorizer.angular.z=1.0;
+        }
+        if(left < right)
+        {
+            motorizer.angular.z=-1.0;
+        }
+    }
+    if(center <= 3.0)
+    {
+        motorizer.linear.x=0.5;
+        if(right < left && right + 0.4 > left)
+        {
+            motorizer.linear.x = 1.0;
+        }
+        else if(right < left)
+        {
+            motorizer.angular.z=2.0;
+        }
+        else if(left < right)
+        {
+            motorizer.angular.z=-2.0;
+        }
+    }
+    else if(left <= 1.3 && right > left)
+    {
+        motorizer.angular.z=-1.0;
+    }
+    else if(right <= 1.3 && left > right)
+    {
+        motorizer.angular.z=1.0;
+    
+    }
+    else if(right <= 1.3)
+    {
+        motorizer.angular.z=1.0;
+    }
+    else if(left <= 1.3)
+    {
+        motorizer.angular.z=-1.0;
+    }
+
     float right = scan->ranges[0];
     //float lc = scan->ranges[(size-1)/4];
     float center = scan->ranges[(size-1)/2];
@@ -101,68 +174,4 @@ void callback(const sensor_msgs::LaserScan::ConstPtr &scan)
                 }
             break;
     }
-
-    pub.publish(motorizer);
-}
-int main(int argc, char** argv)
-{
-    ros::init(argc, argv, "race_solver");
-    ros::NodeHandle n;
-    pub = n.advertise<geometry_msgs::Twist>("robot/cmd_vel", 1000);
-    ros::Subscriber sub = n.subscribe("robot/base_scan",1000,callback);
-
-    ros::spin();
-}
-
- /*
-    motorizer.linear.x=5.0;
-    if(right <= 1.2 && left <= 1.2)
-    {
-        motorizer.linear.x=0.5;
-        if(right < left && right + 0.4 > left)
-        {
-            motorizer.angular.z=2.0;
-            motorizer.linear.x=1.0;
-        }
-        if(right < left)
-        {
-            motorizer.angular.z=1.0;
-        }
-        if(left < right)
-        {
-            motorizer.angular.z=-1.0;
-        }
-    }
-    if(center <= 3.0)
-    {
-        motorizer.linear.x=0.5;
-        if(right < left && right + 0.4 > left)
-        {
-            motorizer.linear.x = 1.0;
-        }
-        else if(right < left)
-        {
-            motorizer.angular.z=2.0;
-        }
-        else if(left < right)
-        {
-            motorizer.angular.z=-2.0;
-        }
-    }
-    else if(left <= 1.3 && right > left)
-    {
-        motorizer.angular.z=-1.0;
-    }
-    else if(right <= 1.3 && left > right)
-    {
-        motorizer.angular.z=1.0;
-    
-    }
-    else if(right <= 1.3)
-    {
-        motorizer.angular.z=1.0;
-    }
-    else if(left <= 1.3)
-    {
-        motorizer.angular.z=-1.0;
-    }*/
+*/
