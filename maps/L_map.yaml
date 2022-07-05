@@ -1,4 +1,4 @@
-image: /home/csrobot/stretch_ws/src/nate_stretch/maps.pgm
+image: /home/csrobot/stretch_ws/src/nate_stretch/maps/L_map.pgm
 resolution: 0.050000
 origin: [-100.000000, -100.000000, 0.000000]
 negate: 0
