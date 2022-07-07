@@ -1,0 +1,6 @@
+<launch>
+    <!-- Launches Race Solver -->
+    <node pkg="nate_stretch_core" type="lidar_printer_node" name="LidarPrinter" output="screen">
+        <rosparam file="$(find nate_stretch_core)/params/lidar_printer_params.yaml" command="load"/>
+    </node>
+</launch>

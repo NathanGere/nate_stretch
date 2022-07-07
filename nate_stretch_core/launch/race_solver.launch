@@ -1,0 +1,6 @@
+<launch>
+    <!-- Launches Race Solver -->
+    <node pkg="nate_stretch_core" type="race_solver_node" name="RaceSolver" output="screen">
+        <rosparam file="$(find nate_stretch_core)/params/race_solver_params.yaml" command="load"/>
+    </node>
+</launch>

@@ -147,6 +147,8 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(camera_pcl_downsample_node src/camera_pcl_downsampler.cpp)
 add_executable(object_avoider_node src/object_avoider.cpp)
+add_executable(race_solver_node src/race_solver.cpp)
+add_executable(lidar_printer_node src/lidar_printer.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -158,12 +160,20 @@ add_executable(object_avoider_node src/object_avoider.cpp)
 ## same as for the library above
 add_dependencies(camera_pcl_downsample_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(object_avoider_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(race_solver_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(lidar_printer_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(camera_pcl_downsample_node
    ${catkin_LIBRARIES}
 )
 target_link_libraries(object_avoider_node
+   ${catkin_LIBRARIES}
+)
+target_link_libraries(race_solver_node
+   ${catkin_LIBRARIES}
+)
+target_link_libraries(lidar_printer_node
    ${catkin_LIBRARIES}
 )
 
